@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+  <h1></h1>
+    <table>
+      <thead>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Condition</th>
+      </thead>
+    <% for(i = 0; i<game.partyMembers.length; i++){%>
+        <tr>
+          <td> <%=game.partyMembers[i].name%> </td>
+          <td> <%=game.partyMembers[i].status%> </td>
+          <td> <%=game.partyMembers[i].disease%> </td>
+        </tr>
+      <%}%>
+    </table>
+    <table>
+      <thead>
+        <th>Supply</th>
+        <th>Quantity</th>
+      </thead>
+      <tr>
+        <td>oxen</td>
+        <td><%= game.supplies.oxen %></td>
+      </tr>
+      <tr>
+        <td>Sets of Clothing</td>
+        <td><%= game.supplies.setsClothing %></td>
+      </tr>
+      <tr>
+        <td>Bullets</td>
+        <td><%= game.supplies.bullet %></td>
+      </tr>
+      <tr>
+        <td>Wagon Wheels</td>
+        <td><%= game.supplies.wagonWheels %></td>
+      </tr>
+      <tr>
+        <td>Wagon Axels</td>
+        <td><%= game.supplies.wagonAxels %></td>
+      </tr>
+      <tr>
+        <td>Wagon Tongues</td>
+        <td><%= game.supplies.wagonTongues %></td>
+      </tr>
+      <tr>
+        <td>Pounds of Food</td>
+        <td><%= game.supplies.poundsFood %></td>
+      </tr>
+    </table>
+  </body>
+</html>
