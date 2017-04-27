@@ -5,16 +5,18 @@ class Game {
     this.partyMembers = [] //array of each partyMember (object)
     this.supplies = {
       oxen: Math.floor(Math.random()*10)+1,
-      setsClothing: Math.floor(Math.random()*20)+1,
-      bullet: Math.floor(Math.random()*500)+1,
+      wagonAxels: Math.floor(Math.random()*5)+1,
       wagonWheels: Math.floor(Math.random()*6)+1,
       wagonTongues: Math.floor(Math.random()*10)+1,
-      wagonAxels: Math.floor(Math.random()*5)+1,
+      setsClothing: Math.floor(Math.random()*20)+1,
+      bullet: Math.floor(Math.random()*500)+1,
       poundsFood: Math.floor(Math.random()*200)+101
     }
+    this.recentlyBroken = ""
     this.recentlyRecovered = ""
     this.recentlyDeceased = ""
     this.recentlyFellIll = ""
+    this.brokeDown = false
     this.locations = [
         { name: "Rachel's Death Valley",
           source: "a.png"},
@@ -61,6 +63,37 @@ class Game {
     this.locations = tempGame.locations
     this.daysSpent = tempGame.daysSpent
     this.currentLocation = tempGame.currentLocation
+    this.brokeDown = tempGame.brokeDown
+  }
+  checkWagon(){
+    let allSupplies = Object.getOwnPropertyNames(this.supplies)
+    for (var i = 0; i<4; i++){
+      if(this.getBroke(10)){
+        let selectedSupply = allSupplies[i]
+        this.supplies[selectedSupply] -= 1
+        if (this.supplies[selectedSupply] < 0){
+          this.brokeDown = true
+        }
+        this.recentlyBroken = selectedSupply
+        return true
+      }
+    }
+    return false
+  }
+  checkLose(){
+    if(this.bodyCount() == 0 || this.supplies.poundsFood <= 0 || this.brokeDown){
+      return true
+    }
+    return false
+  }
+  bodyCount(){
+    let headCount = 0
+    this.partyMembers.forEach(function(member){
+    if (member.status !== "dead"){
+      headCount++
+    }
+  })
+    return headCount
   }
   diseaseRecovery(chance, partyMemberIndex){
     let i = partyMemberIndex
@@ -81,8 +114,16 @@ class Game {
       this.recentlyDeceased = this.partyMembers[i].name
       return true
     }
+    return false
   }
-
+  getBroke(chance){
+    //let i = partyMemberIndex
+    let randomNum = Math.floor(Math.random() * chance) + 1
+    if (randomNum === 1){
+      return true
+    }
+    return false
+  }
 
   getSick(chance){
     //let i = partyMemberIndex
@@ -90,6 +131,7 @@ class Game {
     if (randomNum === 1){
       return true
     }
+    return false
   }
 
   checkSick(){
@@ -200,16 +242,30 @@ class Game {
     if (this.currentLocation === this.locations.length-1 ){
       return "game-won"
     }
+    if (this.checkLose()){
+      return "lose"
+    }
     if (this.checkDead()){
-      this.daysSpent += 2;
+      this.daysSpent += 5;
+      this.supplies.poundsFood -= (2 * this.bodyCount()) ;
+      if (this.supplies.poundsFood < 0){
+        this.supplies.poundsFood = 0
+      }
       return "dead"
     }
     if (this.checkRecovered()){
       return "recovered"
     }
     if (this.checkSick()){
-      this.daysSpent += 5;
+      this.daysSpent += 2;
+      this.supplies.poundsFood -= (1 * this.bodyCount()) ;
+      if (this.supplies.poundsFood < 0){
+        this.supplies.poundsFood = 0
+      }
       return "sick"
+    }
+    if(this.checkWagon()){
+      return "broke"
     }
     //check if recovered
     //check if sick
@@ -219,7 +275,10 @@ class Game {
     //decrement supplies
     //if all false, next location
     this.currentLocation++;
-    this.supplies.poundsFood -= 10;
+    this.supplies.poundsFood -= (5 * this.bodyCount()) ;
+    if (this.supplies.poundsFood < 0){
+      this.supplies.poundsFood = 0
+    }
     this.daysSpent += 10
     return 'location'
   }
