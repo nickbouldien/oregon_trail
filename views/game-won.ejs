@@ -5,9 +5,23 @@
     <title></title>
   </head>
   <body>
-    <img src=<%=game.locations[game.currentLocation].source %> alt="">
-    <h1><%=game.locations[game.currentLocation].name%></h1>
+    <img src="i will me an image later on..." alt="">
+    <h1>You have arrived in Oregon City!</h1>
     <p>lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum </p>
+    <table>
+      <thead>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Condition</th>
+      </thead>
+    <% for(i = 0; i<game.partyMembers.length; i++){%>
+        <tr>
+          <td> <%=game.partyMembers[i].name%> </td>
+          <td> <%=game.partyMembers[i].status%> </td>
+          <td> <%=game.partyMembers[i].disease%> </td>
+        </tr>
+      <%}%>
+    </table>
     <table>
       <thead>
         <th>Supply</th>
@@ -42,7 +56,9 @@
         <td><%= game.supplies.poundsFood %></td>
       </tr>
     </table>
-    <a href="#"><button type="button" name="button">Look Around</button></a>
-    <a href="/turn"><button type="button" name="button">Next Location</button></a>
+
+    <h4>Days on the trail: <%=game.daysSpent%> </h4>
+
+    <a href="/"><button type="button" name="button">Play Again</button></a>
   </body>
 </html>

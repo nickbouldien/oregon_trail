@@ -11,6 +11,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 //app.use(expressLayouts);
 
+function loadGame(request){
+  let gameId = request.cookies.gameId
+  let game = new Game(gameId)
+  game.load()
+  return game
+}
 
 app.get('/', function(request, response) {
   response.render('home');
@@ -34,6 +40,7 @@ app.post('/outset', function(request, response){
   }
   //save the game
   game.save()
+console.log(game.id);
   //persist this game's id by writing the game id into a cookie
   response.cookie('gameId', game.id)
   //display the outset page
@@ -41,10 +48,14 @@ app.post('/outset', function(request, response){
 })
 app.get('/location', function(request, response){
   //load the game and display current location
-  let gameId = response.cookie('gameId')
-  let game = new Game(gameId)
-  game.load()
+  let game = loadGame(request)
   response.render('location', {game: game})
+})
+app.get('/turn',function(request,response){
+  let game = loadGame(request)
+  let step = game.takeTurn()
+  game.save()
+  response.render(step, {game: game})
 })
 
 app.listen(3000, function(){

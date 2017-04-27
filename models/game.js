@@ -20,7 +20,7 @@ class Game {
       ] // all the locations in the game
     this.daysSpent = 0;
     this.currentLocation = 0; // index of the locations array
-    if (this.id===undefined) {
+    if (id === undefined) {
       this.id = Date.now()
     }
     else {
@@ -41,12 +41,15 @@ class Game {
     this.currentLocation = tempGame.currentLocation
   }
   takeTurn(){
+    if (this.currentLocation === this.locations.length-1 ){
+    return "game-won"
+    }
     //check if recovered
     //check if sick
     //check if damaged
     //if all false, next location
     this.currentLocation++
-    return 'new location'
+    return 'location'
   }
 }
 
