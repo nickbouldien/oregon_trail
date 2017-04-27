@@ -19,6 +19,16 @@ class Game {
         { name: "Rachel's Death Valley",
           source: "a.png"},
         { name: "Brady's Terranium",
+          source: "b.png"},
+        { name: "nicks's Terranium",
+          source: "b.png"},
+        { name: "alex's Terranium",
+          source: "b.png"},
+        { name: "antonio's Terranium",
+          source: "b.png"},
+        { name: "gabe's Terranium",
+          source: "b.png"},
+        { name: "Brady's bungalow",
           source: "b.png"}
       ] // all the locations in the game
     this.daysSpent = 0;
@@ -61,10 +71,21 @@ class Game {
       this.recentlyRecovered = this.partyMembers[i].name
       return true
     }
-
   }
-  getSick(chance, partyMemberIndex){
+
+  die(chance, partyMemberIndex){
     let i = partyMemberIndex
+    let randomNum = Math.floor(Math.random() * chance) + 1
+    if (randomNum === 1){
+      this.partyMembers[i].status = "dead";
+      this.recentlyDeceased = this.partyMembers[i].name
+      return true
+    }
+  }
+
+
+  getSick(chance){
+    //let i = partyMemberIndex
     let randomNum = Math.floor(Math.random() * chance) + 1
     if (randomNum === 1){
       return true
@@ -74,11 +95,66 @@ class Game {
   checkSick(){
     for (var i = 0; i < this.partyMembers.length; i++){
       if (this.partyMembers[i].status == "well"){
-
+        for(var j=0; j < this.diseases.length; j++){
+            if(this.getSick(this.diseases[j].chance)){
+              this.partyMembers[i].status = "sick";
+              this.partyMembers[i].disease = this.diseases[j].name;
+              this.recentlyFellIll = this.partyMembers[i]
+              return true;
+            }
+          }
       }
     }
+    return false;
   }
 
+
+  checkDead(){
+    for (var i = 0; i < this.partyMembers.length; i++){
+      if (this.partyMembers[i].status == "sick"){
+        switch(this.partyMembers[i].disease){
+          case "dysentery":
+            if (this.die(2, i)){
+              return true
+            }
+            break;
+          case "cholera":
+            if (this.die(2, i)){
+              return true
+            }
+            break;
+          case "broken leg":
+            if (this.die(20, i)){
+              return true
+            }
+            break;
+          case "broken arm":
+            if (this.die(100, i)){
+              return true
+            }
+            break;
+          case "bitten by snake":
+            if (this.die(3, i)){
+              return true
+            }
+            break;
+          case "influenza":
+            if (this.die(50, i)){
+              return true
+            }
+            break;
+          case "spontaneous combustion":
+            if (this.die(1, i)){
+              return true
+            }
+            break;
+          default:
+            break;
+        }
+      }
+    }
+    return false
+  }
   checkRecovered(){
     for (var i = 0; i < this.partyMembers.length; i++){
       if (this.partyMembers[i].status == "sick"){
@@ -124,20 +200,27 @@ class Game {
     if (this.currentLocation === this.locations.length-1 ){
       return "game-won"
     }
+    if (this.checkDead()){
+      this.daysSpent += 2;
+      return "dead"
+    }
     if (this.checkRecovered()){
       return "recovered"
     }
     if (this.checkSick()){
+      this.daysSpent += 5;
       return "sick"
     }
     //check if recovered
     //check if sick
     // check if dead
+
     //check if damage
     //decrement supplies
     //if all false, next location
-    this.currentLocation++
-    this.supplies.poundsFood -= 10
+    this.currentLocation++;
+    this.supplies.poundsFood -= 10;
+    this.daysSpent += 10
     return 'location'
   }
 }
