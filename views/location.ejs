@@ -8,41 +8,8 @@
     <img src=<%=game.locations[game.currentLocation].source %> alt="">
     <h1><%=game.locations[game.currentLocation].name%></h1>
     <p>lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum </p>
-    <table>
-      <thead>
-        <th>Supply</th>
-        <th>Quantity</th>
-      </thead>
-      <tr>
-        <td>oxen</td>
-        <td><%= game.supplies.oxen %></td>
-      </tr>
-      <tr>
-        <td>Sets of Clothing</td>
-        <td><%= game.supplies.setsClothing %></td>
-      </tr>
-      <tr>
-        <td>Bullets</td>
-        <td><%= game.supplies.bullet %></td>
-      </tr>
-      <tr>
-        <td>Wagon Wheels</td>
-        <td><%= game.supplies.wagonWheels %></td>
-      </tr>
-      <tr>
-        <td>Wagon Axels</td>
-        <td><%= game.supplies.wagonAxels %></td>
-      </tr>
-      <tr>
-        <td>Wagon Tongues</td>
-        <td><%= game.supplies.wagonTongues %></td>
-      </tr>
-      <tr>
-        <td>Pounds of Food</td>
-        <td><%= game.supplies.poundsFood %></td>
-      </tr>
-    </table>
-    <h4>Days on the trail: <%=game.daysSpent%> </h4>
+    <% include partials/game-status %>
+
     <a href="#"><button type="button" name="button">Look Around</button></a>
     <a href="/turn"><button type="button" name="button">Next Location</button></a>
   </body>
