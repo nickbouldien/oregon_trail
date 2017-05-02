@@ -149,8 +149,6 @@ class Game {
     }
     return false;
   }
-
-
   checkDead(){
     for (var i = 0; i < this.partyMembers.length; i++){
       if (this.partyMembers[i].status == "sick"){
@@ -237,6 +235,19 @@ class Game {
       }
     }
     return false
+  }
+  hunt() {
+    // look around/hunt function
+
+
+    // adjust supplies (if they find something)
+    this.supplies.wagonAxels += Math.floor(Math.random()*2);
+    this.supplies.wagonTongues += Math.floor(Math.random()*2);
+    this.supplies.setsClothing += Math.floor(Math.random()*3);
+    this.supplies.bullet -= Math.floor(Math.random()*50);
+    this.supplies.poundsFood += (Math.floor(Math.random()*35)) //- (2 * this.bodyCount()));
+    this.daysSpent += 1;
+
   }
   takeTurn(){
     if (this.currentLocation === this.locations.length-1 ){

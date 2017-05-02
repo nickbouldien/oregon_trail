@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
+app.use(expressLayouts);
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 //app.use(expressLayouts);
@@ -40,7 +41,7 @@ app.post('/outset', function(request, response){
   }
   //save the game
   game.save()
-console.log(game.id);
+  console.log(game.id);
   //persist this game's id by writing the game id into a cookie
   response.cookie('gameId', game.id)
   //display the outset page
@@ -57,6 +58,15 @@ app.get('/turn',function(request,response){
   game.save()
   response.render(step, {game: game})
 })
+
+
+app.get('/hunt', function(request, response) {
+  let game = loadGame(request)
+  game.hunt()
+  game.save()
+  response.render('hunt', {game: game})
+})
+
 
 app.listen(3000, function(){
   console.log('listening on port 3000');
