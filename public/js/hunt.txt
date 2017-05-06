@@ -54,21 +54,18 @@ function makeShapeAppear() {  //make first shape appear
 }
 
 function appearAfterDelay() {
-    setTimeout(makeShapeAppear, Math.random() * 1000); // make new shape appear after random time <= 2 seconds
-    console.log('putting shape');
+    setTimeout(makeShapeAppear, Math.random() * 1200); // make new shape appear after random time <= 2 seconds
 }
 
 appearAfterDelay(); // put in appearAfterDelay?  that way it
 
 // need function to subtract bullets even on misses
 
-let shapes = document.getElementById('shape');
-console.log(shapes);
-shapes.addEventListener("click", hideShape);
+let shapes = document.querySelector('#shape');
+shapes.addEventListener(click, hideShape);
 
 function hideShape() {
-  console.log('not working');
-  document.getElementById('shape').style.background = 'blue';
+  document.querySelector('#shape').style.color = 'blue';
 }
 
 // document.getElementById('shape').onclick = function() {
