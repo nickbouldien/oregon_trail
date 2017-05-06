@@ -4,25 +4,30 @@
     <meta charset="utf-8">
     <title>Hunting "on the trail"!</title>
 
-    <script type="text/javascript" src="/js/hunting.js"></script>
     <link rel="stylesheet" href="/css/hunting.css">
 
   </head>
   <body>
 
     <h1>Hunting at <%=game.locations[game.currentLocation].name%></h1>
-    
+
     <p>Good luck "on the trail"</p>
 
     <p>Shoot the animals as fast as you can! You have 30 seconds.</p>
 
     <p>Your time: <span id='timeTaken'></span></p>
 
-    <div id="shape"></div>
+    <div class="info">
+      <h4>bullets:  <%= game.supplies.bullet %> </h4>
+    </div>
+    <div class="food">
+      <h4>Food starting out:  <%= game.supplies.poundsFood %> </h4>
+    </div>
 
-    <script type='text/javascript'  src='script.js'></script>
+    <div id="shape"></div>
 
 
     <a href="/huntresults"><button type="button" name="button">Exit Hunt</button></a>
+    <script type="text/javascript" src="/js/hunting.js"></script>
   </body>
 </html>

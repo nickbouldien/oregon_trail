@@ -22,28 +22,18 @@ var startTime = new Date().getTime();  // start the timer
 //   }
 // }
 
-
-function getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++ ) {
-    color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
-
 function makeShapeAppear() {  //make first shape appear
-    var top = Math.random()*400;
-    var left = Math.random()*400;
-    var width = (Math.random()*200) + 100;
-    var height = Math.random()*400;
+    var top = Math.random()*500;
+    var left = Math.random()*600;
+    var width = (Math.random()*50) + 100;
+    var height = Math.random()*200;
 
     if (Math.random() > .5) {
        document.getElementById('shape').style.borderRadius = '50%';
     } else {
         document.getElementById('shape').style.borderRadius = '0%';
     }
-    document.getElementById('shape').style.backgroundColor= getRandomColor();
+    document.getElementById('shape').style.backgroundColor= 'brown'; //getRandomColor();
     document.getElementById('shape').style.height = height + 'px';
     document.getElementById('shape').style.width = width + 'px';
     document.getElementById('shape').style.top = top + 'px';
@@ -55,21 +45,42 @@ function makeShapeAppear() {  //make first shape appear
 
 function appearAfterDelay() {
     setTimeout(makeShapeAppear, Math.random() * 1000); // make new shape appear after random time <= 2 seconds
-    console.log('putting shape');
+    //console.log('putting shape');
 }
 
 appearAfterDelay(); // put in appearAfterDelay?  that way it
 
 // need function to subtract bullets even on misses
+var food = 0;
+
+function shotAnimal(e) {
+  console.log('not working');
+  document.getElementById('shape').style.background = 'red';
+  //document.getElementById('shape').classList.add('change');
+
+  // add random number of pounds food
+  food += Math.floor(Math.random()*10)+2;
+  // display total number of pounds food gained during hunt
+  document.querySelector('.food').innerHTML = 'Food captured: ' + game.supplies.bullet;
+
+
+  appearAfterDelay();
+}
 
 let shapes = document.getElementById('shape');
-console.log(shapes);
-shapes.addEventListener("click", hideShape);
+//console.log(shapes);
+shapes.addEventListener("click", shotAnimal);
 
-function hideShape() {
-  console.log('not working');
-  document.getElementById('shape').style.background = 'blue';
-}
+document.querySelector('.container').addEventListener('click', function(e){
+  console.log('shots fired!');
+  //decrease bullets by one for each shot
+  game.supplies.bullet -= 1;
+
+  // update display with number of bullets
+  document.querySelector('.info').innerHTML = 'Bullets remaining: ' + game.supplies.bullet;
+
+})
+
 
 // document.getElementById('shape').onclick = function() {
 //     //game.supplies.bullet -= 1;
@@ -80,3 +91,6 @@ function hideShape() {
 //     document.getElementById('timeTaken').innerHTML = timeTaken;
 //     appearAfterDelay();
 // }
+
+//
+// <rect x='10' y='10' width='100' height='100' stroke='blue' fill='purple' />
