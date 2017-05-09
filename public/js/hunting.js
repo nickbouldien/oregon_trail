@@ -16,23 +16,39 @@ var startTime = new Date().getTime();  // start the timer
 //
 // }; // stop hunting at 30 seconds
 
-// function stopHunt(){
-//   if new Date() - startTime >= 30 {
-//
-//   }
-// }
+let scoreBoard = document.querySelector('.score');
+let timeUp = false;
+let score = 0;
+//let bulletsRemaining =
 
+
+function startGame() {
+  scoreBoard.textContent = 0;
+  timeUp = false;
+  score = 0;
+  // create shapes
+  makeShapeAppear()
+
+  setTimeout(() => timeUp = true, 10000);
+}
+
+function randTime(min, max) {
+  return Math.round(Math.random()* (max-min) + min);
+}
+
+
+// random location
 function makeShapeAppear() {  //make first shape appear
     var top = Math.random()*500;
     var left = Math.random()*600;
     var width = (Math.random()*50) + 100;
     var height = Math.random()*200;
 
-    if (Math.random() > .5) {
-       document.getElementById('shape').style.borderRadius = '50%';
-    } else {
-        document.getElementById('shape').style.borderRadius = '0%';
-    }
+    // if (Math.random() > .5) {
+    //    document.getElementById('shape').style.borderRadius = '50%';
+    // } else {
+    //     document.getElementById('shape').style.borderRadius = '0%';
+    // }
     document.getElementById('shape').style.backgroundColor= 'brown'; //getRandomColor();
     document.getElementById('shape').style.height = height + 'px';
     document.getElementById('shape').style.width = width + 'px';
@@ -40,41 +56,53 @@ function makeShapeAppear() {  //make first shape appear
     document.getElementById('shape').style.left = left + 'px';
     document.getElementById('shape').style.display = 'block';
 
-    startTime = new Date().getTime();
-}
+    const time = randTime(200, 1200);
 
-function appearAfterDelay() {
-    setTimeout(makeShapeAppear, Math.random() * 1000); // make new shape appear after random time <= 2 seconds
-    //console.log('putting shape');
+    setTimeout(() => {
+      if(!timeUp) {
+          makeShapeAppear()
+      }
+    }, time);
 }
+//
+// function appearAfterDelay() {
+//      // make new shape appear after random time <= 2 seconds
+//     //console.log('putting shape');
+// }
 
-appearAfterDelay(); // put in appearAfterDelay?  that way it
 
 // need function to subtract bullets even on misses
 var food = 0;
 
 function shotAnimal(e) {
   console.log('not working');
+
+  if(!e.isTrusted) return; // cheater!
+
+  score++;
+  scoreBoard.textContent = score;
+
   document.getElementById('shape').style.background = 'red';
   //document.getElementById('shape').classList.add('change');
 
   // add random number of pounds food
-  food += Math.floor(Math.random()*10)+2;
+  //food += Math.floor(Math.random()*10)+2;
   // display total number of pounds food gained during hunt
-  document.querySelector('.food').innerHTML = 'Food captured: ' + game.supplies.bullet;
+  //document.querySelector('.food').innerHTML = 'Food captured: ' + game.supplies.bullet;
 
-
-  appearAfterDelay();
 }
 
 let shapes = document.getElementById('shape');
 //console.log(shapes);
 shapes.addEventListener("click", shotAnimal);
 
+
+
 document.querySelector('.container').addEventListener('click', function(e){
   console.log('shots fired!');
   //decrease bullets by one for each shot
-  game.supplies.bullet -= 1;
+  bullets--;
+  //game.supplies.bullet -= 1;
 
   // update display with number of bullets
   document.querySelector('.info').innerHTML = 'Bullets remaining: ' + game.supplies.bullet;

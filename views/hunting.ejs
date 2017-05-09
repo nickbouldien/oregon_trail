@@ -15,10 +15,13 @@
 
     <p>Shoot the animals as fast as you can! You have 30 seconds.</p>
 
+    <button type="button" name="button" onClick="startGame()">Start!</button>
+
     <p>Your time: <span id='timeTaken'></span></p>
+    <h4 class="score">0</h4>
 
     <div class="info">
-      <h4>bullets:  <%= game.supplies.bullet %> </h4>
+      <h4 id='bullets'>bullets:  <%= game.supplies.bullet %> </h4>
     </div>
     <div class="food">
       <h4>Food starting out:  <%= game.supplies.poundsFood %> </h4>
