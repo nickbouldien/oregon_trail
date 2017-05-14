@@ -9,28 +9,40 @@
   </head>
   <body>
 
-    <h1>Hunting at <%=game.locations[game.currentLocation].name%></h1>
+    <h1>Hunting at <%=game.locations[game.currentLocation].name%>
+        <span class="score">0</span>
+</h1>
 
-    <p>Good luck "on the trail"</p>
-
-    <p>Shoot the animals as fast as you can! You have 30 seconds.</p>
 
     <button type="button" name="button" onClick="startGame()">Start!</button>
 
-    <p>Your time: <span id='timeTaken'></span></p>
-    <h4 class="score">0</h4>
 
-    <div class="info">
-      <h4 id='bullets'>bullets:  <%= game.supplies.bullet %> </h4>
+
+    <div id="game">
+      <div class="spot spot1">
+        <div class="animal"></div>
+      </div>
+      <div class="spot spot2">
+        <div class="animal"></div>
+      </div>
+      <div class="spot spot3">
+        <div class="animal"></div>
+      </div>
+      <div class="spot spot4">
+        <div class="animal"></div>
+      </div>
+      <div class="spot spot5">
+        <div class="animal"></div>
+      </div>
+      <div class="spot spot6">
+        <div class="animal"></div>
+      </div>
     </div>
-    <div class="food">
-      <h4>Food starting out:  <%= game.supplies.poundsFood %> </h4>
-    </div>
-
-    <div id="shape"></div>
 
 
-    <a href="/huntresults"><button type="button" name="button">Exit Hunt</button></a>
+
+
+
     <script type="text/javascript" src="/js/hunting.js"></script>
   </body>
 </html>

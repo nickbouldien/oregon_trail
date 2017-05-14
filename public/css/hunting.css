@@ -1,9 +1,14 @@
 
-/*body {
+body {
+  padding: 0;
+  margin: 0;
 
-  font-family: sans-serif;
-  background-color: coral;
-}*/
+}
+
+html {
+  box-sizing: border-box;
+
+}
 
 /*#shape {
 
@@ -12,7 +17,50 @@ position: relative;
 
 }*/
 
-.change {
-  background-color: red;
-  /*shape-inside: red;*/
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
+.game {
+  width: 600px;
+  height: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.spot {
+  flex: 1 0 50%;
+  overflow: hidden;
+  position: relative;
+  /*background: url(../images/rock.svg) bottom center no-repeat;*/
+
+}
+
+.spot:after {
+  display: block;
+  /*background-color: blue;*/
+
+  background: url(../images/rock.svg) bottom center no-repeat;
+  background-size: contain;
+  content: '';
+  width: 50%;
+  height:auto;
+  position: absolute;
+  z-index: 2;
+  bottom:-30px;
+}
+.animal {
+  background: url("../images/animal.svg") bottom center no-repeat;
+  background-size: 40%;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  height:100%;
+  transition:all 0.4s;
+}
+
+.spot.up .animal {
+  top:0;
 }
