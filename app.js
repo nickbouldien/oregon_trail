@@ -62,12 +62,17 @@ app.get('/turn',function(request,response){
 
 app.get('/hunt', function(request, response) {
   let game = loadGame(request)
-  game.hunt()
+  //game.hunt()
+  game.save()
+  response.render('hunting', {game: game})
+})
+
+app.get('/huntresults', function(request, response) {
+  let game = loadGame(request)
+  //game.hunt()
   game.save()
   response.render('hunt', {game: game})
 })
-
-
 app.listen(3000, function(){
   console.log('listening on port 3000');
 })
