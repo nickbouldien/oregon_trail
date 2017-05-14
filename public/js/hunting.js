@@ -7,14 +7,9 @@
 
 // at the end:
 // multiply # animals shot by Math.random() to get poundsFood and update game.supplies.poundsFood
-//
 
 // have exit for hunter to leave early (before 30 seconds)
 
-var startTime = new Date().getTime();  // start the timer
-// if (startTime >= 30) {
-//
-// }; // stop hunting at 30 seconds
 
 let scoreBoard = document.querySelector('.score');
 let timeUp = false;
@@ -29,7 +24,7 @@ function startGame() {
   // create shapes
   makeShapeAppear()
 
-  setTimeout(() => timeUp = true, 10000);
+  setTimeout(() => timeUp = true, 10000); //game ends after 10 seconds
 }
 
 function randTime(min, max) {
@@ -44,12 +39,7 @@ function makeShapeAppear() {  //make first shape appear
     var width = (Math.random()*50) + 100;
     var height = Math.random()*200;
 
-    // if (Math.random() > .5) {
-    //    document.getElementById('shape').style.borderRadius = '50%';
-    // } else {
-    //     document.getElementById('shape').style.borderRadius = '0%';
-    // }
-    document.getElementById('shape').style.backgroundColor= 'brown'; //getRandomColor();
+    document.getElementById('shape').style.backgroundColor = 'brown'; //getRandomColor();
     document.getElementById('shape').style.height = height + 'px';
     document.getElementById('shape').style.width = width + 'px';
     document.getElementById('shape').style.top = top + 'px';
@@ -75,7 +65,7 @@ function makeShapeAppear() {  //make first shape appear
 var food = 0;
 
 function shotAnimal(e) {
-  console.log('not working');
+  //console.log('not working');
 
   if(!e.isTrusted) return; // cheater!
 
@@ -83,7 +73,6 @@ function shotAnimal(e) {
   scoreBoard.textContent = score;
 
   document.getElementById('shape').style.background = 'red';
-  //document.getElementById('shape').classList.add('change');
 
   // add random number of pounds food
   //food += Math.floor(Math.random()*10)+2;
@@ -102,10 +91,9 @@ document.querySelector('.container').addEventListener('click', function(e){
   console.log('shots fired!');
   //decrease bullets by one for each shot
   bullets--;
-  //game.supplies.bullet -= 1;
 
   // update display with number of bullets
-  document.querySelector('.info').innerHTML = 'Bullets remaining: ' + game.supplies.bullet;
+  //document.querySelector('.info').innerHTML = 'Bullets remaining: ' + game.supplies.bullet;
 
 })
 
@@ -119,6 +107,3 @@ document.querySelector('.container').addEventListener('click', function(e){
 //     document.getElementById('timeTaken').innerHTML = timeTaken;
 //     appearAfterDelay();
 // }
-
-//
-// <rect x='10' y='10' width='100' height='100' stroke='blue' fill='purple' />
